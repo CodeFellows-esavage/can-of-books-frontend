@@ -8,6 +8,9 @@ import {
   Route
 } from "react-router-dom";
 import BestBooks from './BestBooks.js';
+import Profile from './Profile';
+import LoginButton from './LoginButton';
+import LoginForm from './LoginForm.js';
 
 class App extends React.Component {
 
@@ -15,32 +18,41 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: null,
+      email: '',
     }
   }
 
   loginHandler = (user) => {
+    user.preventDefault();
+
     this.setState({
-      user,
+      user: user.target[1].value,
+      email: user.target[0].value,
     })
   }
 
   logoutHandler = () => {
     this.setState({
       user: null,
-    })
+    });
   }
 
   render() {
     return (
       <>
-        <BestBooks />
+
         <Router>
           <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
             <Route exact path="/">
-              {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
+              {this.state.user ? <BestBooks /> : <LoginButton onLogin={this.loginHandler} />}
             </Route>
-            {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
+            <Route path="/profile">
+              <Profile user={this.state.user} />
+            </Route>
+            <Route path="/login">
+              <LoginForm user={this.state.user} loginHandler={this.loginHandler} />
+            </Route>
           </Switch>
           <Footer />
         </Router>
