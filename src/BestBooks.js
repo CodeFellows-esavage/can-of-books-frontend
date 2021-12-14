@@ -4,7 +4,7 @@ import Book from './Book.js';
 import Carousel from 'react-bootstrap/Carousel';
 
 
-class BestBooks extends Component {
+class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,6 @@ class BestBooks extends Component {
     }
   }
 
-  /* DONE: Make a GET request to your API to fetch books for the logged in user  */
   componentDidMount() {
     this.getBooks();
   }
@@ -22,12 +21,9 @@ class BestBooks extends Component {
     const returnedBooks = await axios.get(url);
     this.setState({ books: returnedBooks.data }, console.log(this.state.books));
     console.log("here is a message", this.state.books);
-  } 
+  }
 
   render() {
-
-    /* TODO: render user's books in a Carousel */
-
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
@@ -35,11 +31,8 @@ class BestBooks extends Component {
           <Carousel>
             {this.state.books.map(bookObj => <Carousel.Item key={bookObj._id}><Book book={bookObj} /></Carousel.Item>)}
           </Carousel>
-          // this.state.books.map(bookObj => <li>{bookObj.title}</li>)
-
         ) : (
-          <h3>No Books Found :(</h3>
-
+          <h3>No Books Found :</h3>
         )}
       </>
     )

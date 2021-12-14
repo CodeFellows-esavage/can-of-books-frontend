@@ -1,7 +1,6 @@
-import { Component } from "react";
+import { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-// import { Link } from 'react-router-dom';
 
 class LoginForm extends Component {
 
@@ -15,7 +14,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    /* TODO: create a simple login form that collects username and and email, and lets parent component know when form has been submitted */
+  
     return (
       <Form onSubmit={this.handleFormSubmit}>
         <Form.Group className="mb-3" controlId="email">
