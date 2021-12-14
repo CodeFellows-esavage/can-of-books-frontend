@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 import Book from './Book.js';
 import Carousel from 'react-bootstrap/Carousel';
