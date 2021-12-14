@@ -22,13 +22,8 @@ class App extends React.Component {
     }
   }
 
-  loginHandler = (user) => {
-    user.preventDefault();
-
-    this.setState({
-      user: user.target[1].value,
-      email: user.target[0].value,
-    })
+  loginHandler = (userObj) => {
+    this.setState({ user: userObj.name, email: userObj.email }) // verify this works
   }
 
   logoutHandler = () => {

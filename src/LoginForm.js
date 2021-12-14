@@ -5,11 +5,20 @@ import { Link } from 'react-router-dom';
 
 class LoginForm extends Component {
 
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    const userObj = {
+      name: e.target.username.value,
+      email: e.target.email.value,
+    };
+    this.props.loginHandler(userObj);
+  }
+
   render() {
     /* TODO: create a simple login form that collects username and and email, and lets parent component know when form has been submitted */
     return (
-      <Form onSubmit={this.props.loginHandler}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form onSubmit={this.handleFormSubmit}>
+        <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
           <Form.Text className="text-muted">
@@ -17,9 +26,9 @@ class LoginForm extends Component {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="username">
           <Form.Label>User Name</Form.Label>
-          <Form.Control type="username" placeholder="Enter user name" />
+          <Form.Control type="text" placeholder="Enter username" />
         </Form.Group>
         <Button variant="primary" type="submit">
           Submit
