@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   loginHandler = (userObj) => {
-    this.setState({ user: userObj.name, email: userObj.email }) // verify this works
+    this.setState({ user: userObj.name, email: userObj.email });
   }
 
   logoutHandler = () => {
@@ -41,9 +41,6 @@ class App extends React.Component {
             <Route path="/profile">
               <Profile user={this.state.user} />
             </Route>
-            {/* <Route path="/login">
-              <LoginForm user={this.state.user} loginHandler={this.loginHandler} />
-            </Route> */}
           </Switch>
           <Footer />
         </Router>
