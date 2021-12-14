@@ -18,7 +18,7 @@ class BestBooks extends Component {
   }
 
   async getBooks() {
-    const url = `${process.env.REACT_APP_BACKEND}/books`
+    const url = `${process.env.REACT_APP_BACKEND}/books?email=${this.props.email}`;
     const returnedBooks = await axios.get(url);
     this.setState({ books: returnedBooks.data }, console.log(this.state.books));
     console.log("here is a message", this.state.books);
