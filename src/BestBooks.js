@@ -4,7 +4,7 @@ import Book from './Book.js';
 import Carousel from 'react-bootstrap/Carousel';
 
 
-class BestBooks extends React.Component {
+class BestBooks extends Component {
   constructor(props) {
     super(props);
     this.state = {
