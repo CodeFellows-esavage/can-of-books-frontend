@@ -12,7 +12,7 @@ class Header extends React.Component {
         <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
         {/* <NavItem>{this.props.user ? <Link to="/profile" className="nav-link">Profile</Link> : <Link to="/" className="nav-link">Profile</Link>} </NavItem> */}
         <NavItem>{this.props.user && <Link to="/profile" className="nav-link">Profile</Link>} </NavItem>
-        <NavItem>{this.props.user && <LogoutButton onLogout={this.props.logoutHandler} />}</NavItem>
+        <NavItem>{this.props.user && <LogoutButton logoutHandler={this.props.logoutHandler} />}</NavItem>
         {/* TODO: if the user is logged in, render the `LogoutButton` */}
       </Navbar>
     )

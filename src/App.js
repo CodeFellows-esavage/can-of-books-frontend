@@ -9,8 +9,7 @@ import {
 } from "react-router-dom";
 import BestBooks from './BestBooks.js';
 import Profile from './Profile';
-import LoginButton from './LoginButton';
-import LoginForm from './LoginForm.js';
+import Login from './Login';
 
 class App extends React.Component {
 
@@ -22,37 +21,29 @@ class App extends React.Component {
     }
   }
 
-  loginHandler = (user) => {
-    user.preventDefault();
-
-    this.setState({
-      user: user.target[1].value,
-      email: user.target[0].value,
-    })
+  loginHandler = (userObj) => {
+    this.setState({ user: userObj.name, email: userObj.email }) // verify this works
   }
 
   logoutHandler = () => {
-    this.setState({
-      user: null,
-    });
+    this.setState({ user: null, email: null });
   }
 
   render() {
     return (
       <>
-
         <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} />
+          <Header user={this.state.user} logoutHandler={this.logoutHandler} />
           <Switch>
             <Route exact path="/">
-              {this.state.user ? <BestBooks /> : <LoginButton onLogin={this.loginHandler} />}
+              {this.state.user ? <BestBooks email={this.state.email}/> : <Login email={this.state.email} loginHandler={this.loginHandler} />}
             </Route>
             <Route path="/profile">
               <Profile user={this.state.user} />
             </Route>
-            <Route path="/login">
+            {/* <Route path="/login">
               <LoginForm user={this.state.user} loginHandler={this.loginHandler} />
-            </Route>
+            </Route> */}
           </Switch>
           <Footer />
         </Router>
