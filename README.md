@@ -21,18 +21,21 @@ Create a small app to track what books have impacted you, and what’s recommend
 ## Estimates
 <!-- See below -->
 
-### Name of feature:
-- Estimate of time needed to complete:
-- Start time:
-- Finish time:
-- Actual time needed to complete:
----------------
+### Name of feature: Add Book
+- Estimate of time needed to complete: 3:00h
+- Start time: 3:30pm
+- Finish time: 9pm
+- Actual time needed to complete: 3h36m
 
-### Name of feature:
-- Estimate of time needed to complete:
-- Start time:
-- Finish time:
-- Actual time needed to complete:
+### Name of feature: Refactored to Meet Lab 11 Reqs
+- Estimate of time needed to complete: 2:00h
+- Start time: 1:30pm
+- Finish time: 3:30pm
+### Name of feature: Storage
+- Estimate of time needed to complete: 1h
+- Start time: 3:20pm
+- Finish time: 5:56pm
+- Actual time needed to complete: 2 hours and 36 minutes
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
