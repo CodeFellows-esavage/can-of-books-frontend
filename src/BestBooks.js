@@ -2,18 +2,28 @@ import React from 'react';
 import axios from 'axios';
 import Book from './Book.js';
 import Carousel from 'react-bootstrap/Carousel';
+import AddBookButton from './AddBookButton.js';
+import BookFormModal from './BookFormModal.js';
 
 
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      showBookModal: false,
     }
   }
 
   componentDidMount() {
     this.getBooks();
+  }
+  openModal = () => {
+    this.setState({ showBookModal: true });
+  }
+
+  closeModal = () => {
+    this.setState({ showBookModal: false });
   }
 
   async getBooks() {
@@ -22,6 +32,11 @@ class BestBooks extends React.Component {
     this.setState({ books: returnedBooks.data }, console.log(this.state.books));
     console.log("here is a message", this.state.books);
   }
+
+  //on add book form submit function
+  //create object from form submit
+  //post object to server to update data base
+  //update state to display new added object
 
   render() {
     return (
@@ -34,6 +49,9 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No Books Found :</h3>
         )}
+        <BookFormModal closeModal={this.closeModal} showBookModal={this.state.showBookModal} />
+        <AddBookButton openModal={this.openModal} />
+
       </>
     )
   }
