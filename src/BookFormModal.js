@@ -15,7 +15,7 @@ class BookFormModal extends Component {
             <Modal show={this.props.showBookModal} onHide={this.props.closeModal}>
                 <Modal.Header closeButton>
                 </Modal.Header>
-                <Modal.Body><AddBookForm /></Modal.Body>
+                <Modal.Body><AddBookForm handleBookFormSubmit={this.props.handleBookFormSubmit}/></Modal.Body>
             </Modal>
 
         )

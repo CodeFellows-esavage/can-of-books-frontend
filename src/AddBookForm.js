@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 class AddBookForm extends Component {
     render() {
         return (
-            <Form>
+            <Form onSubmit={this.props.handleBookFormSubmit}>
                 <Form.Group className="mb-3" controlId="title">
                     <Form.Label>Book Title</Form.Label>
                     <Form.Control type="text" placeholder="Book title" />
