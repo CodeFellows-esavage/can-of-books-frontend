@@ -2,18 +2,28 @@ import React from 'react';
 import axios from 'axios';
 import Book from './Book.js';
 import Carousel from 'react-bootstrap/Carousel';
+import AddBookButton from './AddBookButton.js';
+import BookFormModal from './BookFormModal.js';
 
 
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      showBookModal: false,
     }
   }
 
   componentDidMount() {
     this.getBooks();
+  }
+  openModal() {
+    this.setState({ showBookModal: true });
+  }
+
+  closeModal() {
+    this.setState({ showBookModal: false });
   }
 
   async getBooks() {
@@ -34,6 +44,10 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No Books Found :</h3>
         )}
+        {/* {this.state.showBookModal ? <BookFormModal closeModal={this.closeModal} showBookModal={this.state.showBookModal} /> : <AddBookButton openModal={this.openModal} />} */}
+        <BookFormModal closeModal={this.closeModal} showBookModal={this.state.showBookModal} />
+        <AddBookButton openModal={this.openModal} />
+
       </>
     )
   }
