@@ -29,14 +29,13 @@ class BestBooks extends React.Component {
   async getBooks() {
     const url = `${process.env.REACT_APP_BACKEND}/books?email=${this.props.email}`;
     const returnedBooks = await axios.get(url);
-    this.setState({ books: returnedBooks.data }, console.log(this.state.books));
-    console.log("here is a message", this.state.books);
+    this.setState({ books: returnedBooks.data });
   }
 
   postBook = async (newBook) => {
     try {
       const bookResponse = await axios.post(`${process.env.REACT_APP_BACKEND}/books`, newBook);
-      this.setState({ books: [...this.state.books, bookResponse.data] }, console.log(this.state.books));
+      this.setState({ books: [...this.state.books, bookResponse.data] });
     } catch (e) {
       console.error(e);
     }
@@ -53,10 +52,18 @@ class BestBooks extends React.Component {
     this.closeModal();
     this.postBook(newBook);
   }
-  //on add book form submit function
-  //create object from form submit
-  //post object to server to update data base
-  //update state to display new added object
+
+  deleteBook = async (id) => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`);
+      const updatedBookArr = this.state.books.filter(book => book._id !== id);
+      this.setState({ books: updatedBookArr }, console.log(this.state.books));
+
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
 
   render() {
     return (
@@ -64,7 +71,7 @@ class BestBooks extends React.Component {
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
         {this.state.books.length > 0 ? (
           <Carousel>
-            {this.state.books.map(bookObj => <Carousel.Item key={bookObj._id}><Book book={bookObj} /></Carousel.Item>)}
+            {this.state.books.map(bookObj => <Carousel.Item key={bookObj._id}><Book book={bookObj} deleteBook={this.deleteBook} /></Carousel.Item>)}
           </Carousel>
         ) : (
           <h3>No Books Found :</h3>
