@@ -20,8 +20,13 @@ Create a small app to track what books have impacted you, and what’s recommend
 
 ## Estimates
 <!-- See below -->
-
-### Name of feature: Add Book
+### Name of feature: Delete-frontend
+- Estimate of time needed to complete: 1.5h
+- Start time: 10:45p
+- Finish time: 11:45p
+- Actual time needed to complete: 1h
+- 
+### Name of feature: Add Book-frontend
 - Estimate of time needed to complete: 3:00h
 - Start time: 3:30pm
 - Finish time: 9pm
@@ -31,7 +36,7 @@ Create a small app to track what books have impacted you, and what’s recommend
 - Estimate of time needed to complete: 2:00h
 - Start time: 1:30pm
 - Finish time: 3:30pm
-### Name of feature: Storage
+### Name of feature: Storage-frontend
 - Estimate of time needed to complete: 1h
 - Start time: 3:20pm
 - Finish time: 5:56pm
