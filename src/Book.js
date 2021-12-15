@@ -1,7 +1,12 @@
 import { Component } from 'react';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 class Book extends Component {
+
+    handleDeleteClick = () => {
+        this.props.deleteBook(this.props.book._id)
+    }
     render() {
         return (
             <Card style={{ width: '18rem' }}>
@@ -13,6 +18,9 @@ class Book extends Component {
                     </Card.Text>
                     <Card.Text>
                         {this.props.book.email}
+                    </Card.Text>
+                    <Card.Text>
+                        <Button onClick={this.handleDeleteClick} variant="danger">Delete</Button>
                     </Card.Text>
                 </Card.Body>
             </Card>
