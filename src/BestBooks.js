@@ -18,11 +18,11 @@ class BestBooks extends React.Component {
   componentDidMount() {
     this.getBooks();
   }
-  openModal() {
+  openModal = () => {
     this.setState({ showBookModal: true });
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ showBookModal: false });
   }
 
@@ -44,7 +44,6 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No Books Found :</h3>
         )}
-        {/* {this.state.showBookModal ? <BookFormModal closeModal={this.closeModal} showBookModal={this.state.showBookModal} /> : <AddBookButton openModal={this.openModal} />} */}
         <BookFormModal closeModal={this.closeModal} showBookModal={this.state.showBookModal} />
         <AddBookButton openModal={this.openModal} />
 
