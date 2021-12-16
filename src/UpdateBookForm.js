@@ -6,7 +6,7 @@ class UpdateBookForm extends Component {
   render() {
     return (
       <Form id='updateBookForm' onSubmit={this.props.handleBookFormSubmit}>
-        <h3>Edit your book:</h3>
+        <h3>Edit this book:</h3>
         <Form.Group className="mb-3" controlId="title">
           <Form.Label>Book Title</Form.Label>
           <Form.Control type="text" placeholder="Book title" />
