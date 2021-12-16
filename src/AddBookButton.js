@@ -2,11 +2,16 @@ import { Component } from "react";
 import Button from "react-bootstrap/Button";
 
 class AddBookButton extends Component {
-    render() {
-        return (
-            <Button variant="success" onClick={this.props.openModal}>Click to Add a Book</Button>
-        )
-    }
+
+  onAddClick = (e) => {
+    this.props.openModal(e.target.id);
+  }
+  
+  render() {
+    return (
+      <Button id='add' variant="success" onClick={this.onAddClick}>Click to Add a Book</Button>
+    )
+  }
 }
 
 export default AddBookButton;
