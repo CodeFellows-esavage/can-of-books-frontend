@@ -20,11 +20,11 @@ class BestBooks extends React.Component {
   componentDidMount() {
     this.getBooks();
   }
-  setCurrentBook = (currentBook) => this.setState({currentBook: currentBook});
+  setCurrentBook = (currentBook) => this.setState({ currentBook: currentBook });
 
-  openModal = (buttonId) => { 
-    buttonId === 'add' && this.setState({isAdding: true});
-    buttonId === 'edit' && this.setState({isAdding: false});
+  openModal = (buttonId) => {
+    buttonId === 'add' && this.setState({ isAdding: true });
+    buttonId === 'edit' && this.setState({ isAdding: false });
 
     this.setState({ showBookModal: true });
   }
@@ -59,29 +59,32 @@ class BestBooks extends React.Component {
     };
 
     this.closeModal();
-    
+
     if (e.target.id === 'addBookForm') this.postBook(bookObj);
     if (e.target.id === 'updateBookForm') this.updateBook(this.state.currentBook._id, bookObj);
-
-    //do we need to set state of currentbook to null?
   }
 
   updateBook = async (id, bookObj) => {
-    // TODO
-    console.log(id);
-    console.log(bookObj);
+    try {
+      const bookResponse = await axios.put(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`, bookObj);
+      console.log(bookResponse);
+      const updatedBookArr = this.state.books.map((book) => {
+        return (book._id === id) ? bookResponse.data : book;
+      });
+      this.setState({books: updatedBookArr});
+    } catch (e) {
+      console.error(e)
+    }
   }
-  
+
   deleteBook = async (id) => {
     try {
       await axios.delete(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`);
       const updatedBookArr = this.state.books.filter(book => book._id !== id);
       this.setState({ books: updatedBookArr }, console.log(this.state.books));
-
     } catch (e) {
       console.error(e);
     }
-
   }
 
   render() {
@@ -95,9 +98,8 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No Books Found :</h3>
         )}
-        <BookFormModal isAdding={this.state.isAdding} handleBookFormSubmit={this.handleBookFormSubmit} closeModal={this.closeModal} showBookModal={this.state.showBookModal} currentBook={this.state.currentBook}/>
+        <BookFormModal isAdding={this.state.isAdding} handleBookFormSubmit={this.handleBookFormSubmit} closeModal={this.closeModal} showBookModal={this.state.showBookModal} currentBook={this.state.currentBook} />
         <AddBookButton openModal={this.openModal} />
-
       </>
     )
   }
