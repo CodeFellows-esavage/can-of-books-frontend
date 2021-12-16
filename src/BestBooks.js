@@ -12,13 +12,20 @@ class BestBooks extends React.Component {
     this.state = {
       books: [],
       showBookModal: false,
+      isAdding: true,
+      currentBook: null,
     }
   }
 
   componentDidMount() {
     this.getBooks();
   }
-  openModal = () => {
+  setCurrentBook = (currentBook) => this.setState({ currentBook: currentBook });
+
+  openModal = (buttonId) => {
+    buttonId === 'add' && this.setState({ isAdding: true });
+    buttonId === 'edit' && this.setState({ isAdding: false });
+
     this.setState({ showBookModal: true });
   }
 
@@ -41,16 +48,33 @@ class BestBooks extends React.Component {
     }
   }
 
-  handleBookFormSubmit = (e) => {
+  handleBookFormSubmit = (e) => { // handles submissions for both adding and editing
     e.preventDefault();
-    const newBook = {
-      title: e.target.title.value,
-      description: e.target.description.value,
-      status: e.target.status.value,
+    console.log(e.target, 'inhandler');
+    const bookObj = {
+      title: e.target.title.value || this.state.currentBook.title,
+      description: e.target.description.value || this.state.currentBook.description,
+      status: e.target.status.value || this.state.currentBook.status,
       email: this.props.email,
     };
+
     this.closeModal();
-    this.postBook(newBook);
+
+    if (e.target.id === 'addBookForm') this.postBook(bookObj);
+    if (e.target.id === 'updateBookForm') this.updateBook(this.state.currentBook._id, bookObj);
+  }
+
+  updateBook = async (id, bookObj) => {
+    try {
+      const bookResponse = await axios.put(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`, bookObj);
+      console.log(bookResponse);
+      const updatedBookArr = this.state.books.map((book) => {
+        return (book._id === id) ? bookResponse.data : book;
+      });
+      this.setState({books: updatedBookArr});
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   deleteBook = async (id) => {
@@ -58,11 +82,9 @@ class BestBooks extends React.Component {
       await axios.delete(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`);
       const updatedBookArr = this.state.books.filter(book => book._id !== id);
       this.setState({ books: updatedBookArr }, console.log(this.state.books));
-
     } catch (e) {
       console.error(e);
     }
-
   }
 
   render() {
@@ -71,14 +93,13 @@ class BestBooks extends React.Component {
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
         {this.state.books.length > 0 ? (
           <Carousel>
-            {this.state.books.map(bookObj => <Carousel.Item key={bookObj._id}><Book book={bookObj} deleteBook={this.deleteBook} /></Carousel.Item>)}
+            {this.state.books.map(bookObj => <Carousel.Item key={bookObj._id}><Book setCurrentBook={this.setCurrentBook} book={bookObj} deleteBook={this.deleteBook} openModal={this.openModal} /></Carousel.Item>)}
           </Carousel>
         ) : (
           <h3>No Books Found :</h3>
         )}
-        <BookFormModal handleBookFormSubmit={this.handleBookFormSubmit} closeModal={this.closeModal} showBookModal={this.state.showBookModal} />
+        <BookFormModal isAdding={this.state.isAdding} handleBookFormSubmit={this.handleBookFormSubmit} closeModal={this.closeModal} showBookModal={this.state.showBookModal} currentBook={this.state.currentBook} />
         <AddBookButton openModal={this.openModal} />
-
       </>
     )
   }
