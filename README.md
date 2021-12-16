@@ -21,11 +21,11 @@ Create a small app to track what books have impacted you, and what’s recommend
 ## Estimates
 <!-- See below -->
 
-### Name of feature: Update Book
+### Name of feature: Update Book - frontend
 - Estimate of time needed to complete: 30min
 - Start time: 2:30p
-- Finish time: 
-- Actual time needed to complete:
+- Finish time: 5:10p
+- Actual time needed to complete: 2h40m
 ### Name of feature: Delete-frontend
 - Estimate of time needed to complete: 1.5h
 - Start time: 10:45p
