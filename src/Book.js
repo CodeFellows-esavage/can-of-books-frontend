@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 class Book extends Component {
 
   onEditClick = (e) => {
+    this.props.setCurrentBook(this.props.book);
     this.props.openModal(e.target.id);
   }
   handleDeleteClick = () => {
