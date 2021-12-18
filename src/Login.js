@@ -2,19 +2,8 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import './Login.css';
 import LoginButton from './LoginButton';
-import LoginForm from './LoginForm';
-
 
 class Login extends React.Component {
-
-constructor(props) {
-  super(props);
-  this.state = {
-    showLoginForm: false,
-  }
-}
-
-onLoginButtonClick = () => this.setState({showLoginForm: true});
 
   render() {
     return (
@@ -24,7 +13,7 @@ onLoginButtonClick = () => this.setState({showLoginForm: true});
           <Card.Text>
             Click Below to Log In
           </Card.Text>
-          {this.state.showLoginForm ? <LoginForm loginHandler={this.props.loginHandler}/> : <LoginButton onLoginButtonClick={this.onLoginButtonClick}/> }
+          <LoginButton loginHandler={this.props.loginHandler} />
         </Card.Body>
       </Card>
     )
