@@ -9,7 +9,7 @@ class AddBookButton extends Component {
   
   render() {
     return (
-      <Button id='add' variant="success" onClick={this.onAddClick}>Click to Add a Book</Button>
+      <Button id='add' variant="success" onClick={this.onAddClick} style={{ margin: '1rem' }}>Click to Add a Book</Button>
     )
   }
 }
