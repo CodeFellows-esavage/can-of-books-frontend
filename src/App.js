@@ -10,36 +10,21 @@ import {
 import BestBooks from './BestBooks.js';
 import Profile from './Profile';
 import Login from './Login';
+import { withAuth0 } from '@auth0/auth0-react';
 
 class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null,
-      email: '',
-    }
-  }
-
-  loginHandler = (userObj) => {
-    this.setState({ user: userObj.name, email: userObj.email });
-  }
-
-  logoutHandler = () => {
-    this.setState({ user: null, email: null });
-  }
 
   render() {
     return (
       <>
         <Router>
-          <Header user={this.state.user} logoutHandler={this.logoutHandler} />
+          <Header logoutHandler={this.logoutHandler} />
           <Switch>
             <Route exact path="/">
-              {this.state.user ? <BestBooks email={this.state.email}/> : <Login email={this.state.email} loginHandler={this.loginHandler} />}
+              {this.props.auth0.isAuthenticated ? <BestBooks email={this.props.auth0.user.email} /> : <Login />}
             </Route>
             <Route path="/profile">
-              <Profile user={this.state.user} />
+              {this.props.auth0.isAuthenticated && <Profile user={this.props.auth0.user.name} />}
             </Route>
           </Switch>
           <Footer />
@@ -49,4 +34,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth0(App);

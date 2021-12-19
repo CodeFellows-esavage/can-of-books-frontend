@@ -4,6 +4,7 @@ import Book from './Book.js';
 import Carousel from 'react-bootstrap/Carousel';
 import AddBookButton from './AddBookButton.js';
 import BookFormModal from './BookFormModal.js';
+import { withAuth0 } from '@auth0/auth0-react';
 
 
 class BestBooks extends React.Component {
@@ -34,23 +35,45 @@ class BestBooks extends React.Component {
   }
 
   async getBooks() {
-    const url = `${process.env.REACT_APP_BACKEND}/books?email=${this.props.email}`;
-    const returnedBooks = await axios.get(url);
-    this.setState({ books: returnedBooks.data });
+    if (this.props.auth0.isAuthenticated) {
+      const tokenResponse = await this.props.auth0.getIdTokenClaims();
+      const jwt = tokenResponse.__raw; //jwt = json web token
+
+      const axiosRequestConfig = {
+        method: 'get',
+        baseURL: process.env.REACT_APP_BACKEND,
+        url: `/books`,
+        headers: { "Authorization": `Bearer ${jwt}` }
+      }
+      const returnedBooks = await axios(axiosRequestConfig);
+      this.setState({ books: returnedBooks.data });
+    }
   }
 
   postBook = async (newBook) => {
-    try {
-      const bookResponse = await axios.post(`${process.env.REACT_APP_BACKEND}/books`, newBook);
-      this.setState({ books: [...this.state.books, bookResponse.data] });
-    } catch (e) {
-      console.error(e);
+    if (this.props.auth0.isAuthenticated) {
+      const tokenResponse = await this.props.auth0.getIdTokenClaims();
+      const jwt = tokenResponse.__raw;
+
+      const axiosRequestConfig = {
+        method: 'post',
+        baseURL: process.env.REACT_APP_BACKEND,
+        url: `/books`,
+        data: newBook,
+        headers: { "Authorization": `Bearer ${jwt}` }
+      }
+
+      try {
+        const bookResponse = await axios(axiosRequestConfig);
+        this.setState({ books: [...this.state.books, bookResponse.data] });
+      } catch (e) {
+        console.error(e);
+      }
     }
   }
 
   handleBookFormSubmit = (e) => { // handles submissions for both adding and editing
     e.preventDefault();
-    console.log(e.target, 'inhandler');
     const bookObj = {
       title: e.target.title.value || this.state.currentBook.title,
       description: e.target.description.value || this.state.currentBook.description,
@@ -65,26 +88,52 @@ class BestBooks extends React.Component {
   }
 
   updateBook = async (id, bookObj) => {
-    try {
-      const bookResponse = await axios.put(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`, bookObj);
-      console.log(bookResponse);
-      const updatedBookArr = this.state.books.map((book) => {
-        return (book._id === id) ? bookResponse.data : book;
-      });
-      this.setState({books: updatedBookArr});
-    } catch (e) {
-      console.error(e)
+    if (this.props.auth0.isAuthenticated) {
+      const tokenResponse = await this.props.auth0.getIdTokenClaims();
+      const jwt = tokenResponse.__raw;
+
+      const axiosRequestConfig = {
+        method: 'put',
+        baseURL: process.env.REACT_APP_BACKEND,
+        url: `/books/${id}`,
+        data: bookObj,
+        headers: { "Authorization": `Bearer ${jwt}` },
+      }
+
+      try {
+        const bookResponse = await axios(axiosRequestConfig);
+        const updatedBookArr = this.state.books.map((book) => {
+          return (book._id === id) ? bookResponse.data : book;
+        });
+        this.setState({ books: updatedBookArr });
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 
   deleteBook = async (id) => {
-    try {
-      await axios.delete(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`);
+    if (this.props.auth0.isAuthenticated) {
+      const tokenResponse = await this.props.auth0.getIdTokenClaims();
+      const jwt = tokenResponse.__raw;
+
+
+      const axiosRequestConfig = {
+        method: 'delete',
+        baseURL: process.env.REACT_APP_BACKEND,
+        url: `/books/${id}`,
+        headers: { "Authorization": `Bearer ${jwt}` }
+        // params: { "ID": id } why doesn't this work?
+      }
+
+      try {
+      await axios(axiosRequestConfig);
       const updatedBookArr = this.state.books.filter(book => book._id !== id);
-      this.setState({ books: updatedBookArr }, console.log(this.state.books));
+        this.setState({ books: updatedBookArr });
     } catch (e) {
       console.error(e);
     }
+  }
   }
 
   render() {
@@ -105,4 +154,4 @@ class BestBooks extends React.Component {
   }
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);
