@@ -1,7 +1,7 @@
 import React from 'react';
+import './App.css';
 import Header from './Header.js';
 import Footer from './Footer.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,7 +24,7 @@ class App extends React.Component {
               {this.props.auth0.isAuthenticated ? <BestBooks email={this.props.auth0.user.email} /> : <Login />}
             </Route>
             <Route path="/profile">
-              {this.props.auth0.isAuthenticated && <Profile user={this.props.auth0.user.name} />}
+              {this.props.auth0.isAuthenticated && <Profile />}
             </Route>
           </Switch>
           <Footer />

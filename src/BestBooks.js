@@ -141,7 +141,7 @@ class BestBooks extends React.Component {
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
         {this.state.books.length > 0 ? (
-          <Carousel>
+          <Carousel interval={null}>
             {this.state.books.map(bookObj => <Carousel.Item key={bookObj._id}><Book setCurrentBook={this.setCurrentBook} book={bookObj} deleteBook={this.deleteBook} openModal={this.openModal} /></Carousel.Item>)}
           </Carousel>
         ) : (
