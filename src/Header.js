@@ -12,7 +12,7 @@ class Header extends React.Component {
         <Navbar.Brand>My Favorite Books</Navbar.Brand>
         <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
         <NavItem>{this.props.auth0.isAuthenticated && <Link to="/profile" className="nav-link">Profile</Link>} </NavItem>
-        <NavItem>{this.props.auth0.isAuthenticated && <LogoutButton logoutHandler={this.props.logoutHandler} />}</NavItem>
+        <NavItem>{this.props.auth0.isAuthenticated && <LogoutButton />}</NavItem>
       </Navbar>
     )
   }
