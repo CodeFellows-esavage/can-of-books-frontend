@@ -24,7 +24,7 @@ class App extends React.Component {
               {this.props.auth0.isAuthenticated ? <BestBooks email={this.props.auth0.user.email} /> : <Login />}
             </Route>
             <Route path="/profile">
-              {this.props.auth0.isAuthenticated && <Profile user={this.props.auth0.user.name} />}
+              {this.props.auth0.isAuthenticated && <Profile />}
             </Route>
           </Switch>
           <Footer />
