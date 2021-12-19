@@ -9,23 +9,51 @@ Create a small app to track what books have impacted you, and what’s recommend
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+1. Set-up client and server repositories
+2. Establish database connection on client side
+3. Create routes on both client and server side using following RESTful/CRUD practices
+4. Incorporate Auth0 verification to client and server side
 
 ## Architecture
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+Technologies:
+- HTML5
+- CSS3
+- JavaScript
+- React
+- React Bootstrap
+- Express
+- Node.js
+- MongoDB
+- Axios
+- Auth0
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
-
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+- 12-18-2021 - Application now has user authentication through Auth0
+- 12-15-2021 - Application now allows the user to update the fields of entered books
+- 12-14-2021 - Application now allows the user to delete entered books
+- 12-14-2021 - Application now allows the user to enter books
+- 12-13-2021 - Application now renders test data book cards
+- 12-13-2021 - Application now allows for basic login/logout functionality
+- 12-13-2021 - Application now has a functional express server with Mongo Database
+
 
 ## Estimates
 <!-- See below -->
+### Name of feature: Auth0 (Front End and Back End)
+- Estimate of time needed to complete: 4hrs
+- Start time: 9:00 am
+- Finish time: 5:00 pm
+- Actual time needed to complete: 8 hrs
 
 ### Name of feature: Update Book - frontend
 - Estimate of time needed to complete: 30min
 - Start time: 2:30p
 - Finish time: 5:10p
 - Actual time needed to complete: 2h40m
+- 
 ### Name of feature: Delete-frontend
 - Estimate of time needed to complete: 1.5h
 - Start time: 10:45p
@@ -42,6 +70,7 @@ Create a small app to track what books have impacted you, and what’s recommend
 - Estimate of time needed to complete: 2:00h
 - Start time: 1:30pm
 - Finish time: 3:30pm
+- 
 ### Name of feature: Storage-frontend
 - Estimate of time needed to complete: 1h
 - Start time: 3:20pm
