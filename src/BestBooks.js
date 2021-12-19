@@ -43,7 +43,6 @@ class BestBooks extends React.Component {
         method: 'get',
         baseURL: process.env.REACT_APP_BACKEND,
         url: `/books`,
-        // url: `/books?email=${this.props.auth0.user.email}`,
         headers: { "Authorization": `Bearer ${jwt}` }
       }
       const returnedBooks = await axios(axiosRequestConfig);
@@ -75,7 +74,6 @@ class BestBooks extends React.Component {
 
   handleBookFormSubmit = (e) => { // handles submissions for both adding and editing
     e.preventDefault();
-    console.log(e.target, 'inhandler');
     const bookObj = {
       title: e.target.title.value || this.state.currentBook.title,
       description: e.target.description.value || this.state.currentBook.description,
@@ -97,16 +95,12 @@ class BestBooks extends React.Component {
       const axiosRequestConfig = {
         method: 'put',
         baseURL: process.env.REACT_APP_BACKEND,
-        // url: `/books`,
         url: `/books/${id}`,
         data: bookObj,
         headers: { "Authorization": `Bearer ${jwt}` },
-        // params: { "ID": id }
       }
 
       try {
-        // const bookResponse = await axios.put(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`, bookObj);
-        // console.log(bookResponse);
         const bookResponse = await axios(axiosRequestConfig);
         const updatedBookArr = this.state.books.map((book) => {
           return (book._id === id) ? bookResponse.data : book;
@@ -119,7 +113,6 @@ class BestBooks extends React.Component {
   }
 
   deleteBook = async (id) => {
-    console.log("delete book id is: ", id);
     if (this.props.auth0.isAuthenticated) {
       const tokenResponse = await this.props.auth0.getIdTokenClaims();
       const jwt = tokenResponse.__raw;
@@ -133,11 +126,10 @@ class BestBooks extends React.Component {
         // params: { "ID": id } why doesn't this work?
       }
 
-    try {
-      // await axios.delete(`${process.env.REACT_APP_BACKEND}/books/${id}?email=${this.props.email}`);
+      try {
       await axios(axiosRequestConfig);
       const updatedBookArr = this.state.books.filter(book => book._id !== id);
-      this.setState({ books: updatedBookArr }, console.log(this.state.books));
+        this.setState({ books: updatedBookArr });
     } catch (e) {
       console.error(e);
     }
@@ -162,5 +154,4 @@ class BestBooks extends React.Component {
   }
 }
 
-// export default BestBooks;
 export default withAuth0(BestBooks);
